@@ -1,0 +1,23 @@
+{
+  "name": "morii-uta",
+  "version": "1.0.0",
+  "description": "A discord bot that will sing for you",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moriishika/Morii-Uta.git"
+  },
+  "author": "Morii Shikaa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moriishika/Morii-Uta/issues"
+  },
+  "homepage": "https://github.com/moriishika/Morii-Uta#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0"
+  }
+}
