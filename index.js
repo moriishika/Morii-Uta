@@ -18,14 +18,14 @@ moriiuta.once('ready', () => {
 moriiuta.on('message', async msg => {
     const args =  msg.content.slice(prefixs.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
-
+    const connection = msg;
     if(msg.content.startsWith(prefixs)){
         for (comm in commands.list){
             if(comm === command.toLowerCase()){
-                return commands.executeCommand(command, args);
+                return commands.executeCommand(connection, command, args);
             }
         }
-        return error.message(command);
+        return error.message(connection, command);
     }
 })
 

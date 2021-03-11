@@ -1,6 +1,6 @@
 class ErrorHandler{
-    message(command){
-        console.log(`Gommen, uta can't understand this command : ${command}`)
+    message(connection, command){
+        connection.channel.send(`Gommen, uta can't understand this command : \`${command}\``);
     }
 }
 
