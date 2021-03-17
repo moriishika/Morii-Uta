@@ -1,26 +1,19 @@
-const ytdl = require('ytdl-core-discord')
+const MediaPlayer = require('./MediaPlayer.js');
 class Commands {
-    constructor(){
+    constructor() {
         this.list = {
-            play :  this.play,
-            stop : 'stop',
-            skip : 'skip',
-            resume : 'resume',
-            singList : 'singlist',
-            lyrics : 'lyrics',
-            info : 'info'
+            play: new MediaPlayer().play,
+            pause: new MediaPlayer().pause,
+            skip: new MediaPlayer().skip,
+            resume: new MediaPlayer().resume,
+            singList: 'singlist',
+            lyrics: 'lyrics',
+            info: 'info'
         }
     }
 
-    executeCommand(connection, command, args){
+    executeCommand(connection, command, args) {
         return this.list[command](connection, args);
-    }
-
-    async play(connection, args){
-        let conn = await connection.member.voice.channel.join();
-        if(connection.member.voice.channel){
-            conn.play(await ytdl(args[0]), {type: 'opus'})
-        }
     }
 }
 
