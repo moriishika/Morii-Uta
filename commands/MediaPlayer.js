@@ -1,7 +1,7 @@
 const ytdl = require('ytdl-core-discord')
 class Play {
-    async play(dispatch, args) {
-        this.dispatcher = dispatch.play(await ytdl(args[0]), { type: 'opus' });
+    async play(...params) {
+        this.dispatcher = params[0].play(await ytdl(params[1]), { type: 'opus' });
     }
 
     pause() {
