@@ -9,14 +9,14 @@ const error  = new ErrorHandler();
 const moriiuta = new Discord.Client();
 const TOKEN = process.env.TOKEN;
 
-moriiuta.once('ready', (msg) => {
+moriiuta.once('ready', () => {
     console.info(`Logged in as ${moriiuta.user.tag}!`);
 });
 
 moriiuta.on('message', async msg => {
     const args =  msg.content.slice(prefixs.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
-
+    
     if(msg.content.startsWith(prefixs) && command !== ''){
         for (comm in commands.list){
             if(comm === command.toLowerCase()){
