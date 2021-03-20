@@ -1,26 +1,29 @@
 const ytdl = require('ytdl-core-discord')
 const yt_search = require('yt-search');
+const ErrorHandler = require('./ErrorHandler.js');
+const error = new ErrorHandler();
+
 class Play {
-    async play(...params) {
+    async play(params) {
         try{
-            console.log(params[1]);
-            this.dispatcher = params[0].play(await ytdl(params[1]), { type: 'opus' });
+            let song  = await yt_search(...params.args);
+            this.dispatcher = params.connection.play(await ytdl(params[1]), { type: 'opus' });
         }
         catch(err){
-            params[2].channel.send('' + err);
+            error.message(params.msg, err.toString())
         }
     }
 
-    pause() {
-        this.dispatcher ? this.dispatcher.pause() : console.log("error");
+    pause(params) {
+        this.dispatcher ? this.dispatcher.pause() : error.message(params.msg, "You should request me a song master 😃");
     }
 
-    resume() {
-        this.dispatcher ? this.dispatcher.resume() : console.log("error");
+    resume(params) {
+        this.dispatcher ? this.dispatcher.resume() : error.message(params.msg, "You should request me a song master 😃");
     }
 
-    stop(){
-        this.dispatcher ? this.dispatcher.destroy() : console.log("error");
+    stop(params){
+        this.dispatcher ? this.dispatcher.destroy() : error.message(params.msg, "You should request me a song master 😃");
     }
 }
 module.exports = Play;

@@ -24,7 +24,7 @@ moriiuta.on('message', async msg => {
                 return commands.executeCommand(connection, command, args, msg);
             }
         }
-        return error.message(msg, command);
+        return error.message(msg, `Gommen Uta-chan can't understand this command 😥 : **$${command}**`);
     }
 })
 
