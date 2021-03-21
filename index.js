@@ -2,10 +2,10 @@ require('dotenv').config();
 const { prefixs } = require('./config.json')
 const Commands = require('./commands/Command.js');
 const Discord = require('discord.js');
-const ErrorHandler  = require('./commands/ErrorHandler.js');
+const MessageHandler  = require('./commands/ErrorHandler.js');
 
 const commands = new Commands();
-const error  = new ErrorHandler();
+const message  = new MessageHandler();
 const moriiuta = new Discord.Client();
 const TOKEN = process.env.TOKEN;
 
@@ -24,7 +24,7 @@ moriiuta.on('message', async msg => {
                 return commands.executeCommand(connection, command, args, msg);
             }
         }
-        return error.message(msg, `Gommen Uta-chan can't understand this command 😥 : **$${command}**`);
+        return message.send (msg, `Gommen Uta-chan can't understand this command 😥 : **$${command}**`);
     }
 })
 

@@ -1,4 +1,6 @@
 const MediaPlayer = require('./MediaPlayer.js');
+const MessageHandler = require('./MessageHandler.js');
+const message = new MessageHandler();
 class Commands {
     constructor() {
         this.list = {
@@ -6,11 +8,11 @@ class Commands {
             pause: new MediaPlayer().pause,
             resume: new MediaPlayer().resume,
             stop : new MediaPlayer().stop,
+            search: new MediaPlayer().search,
             dis: this.disconnect,
             help: this.help,
             join: this.join,
             skip: "skip",
-            search: 'search',
             singList: 'singlist',
             lyrics: 'lyrics',
             info: 'info',
@@ -25,15 +27,16 @@ class Commands {
 
     join(params){
         params.msg.member.voice.channel.join()
-        params.msg.channel.send(`Hello Uta chan is here, let's sing along 🎶`)
+        message.send(params.msg, `Hello Uta chan is here, let's sing along 🎶`)
     }
 
     disconnect(params){
         params.connection.disconnect();
+        message.send(params.msg, `Bye - bye arigatou 😥`)
     }
 
     help(params) {
-        params.msg.channel.send(`>>> **Uta chan is only able to do this 😖**
+        message.send(params.msg, `>>> **Uta chan is only able to do this 😖**
 1. play [ url ] || song name is not available yet
 2. pause
 3. resume
