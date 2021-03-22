@@ -23,17 +23,17 @@ class Commands {
         if(msg.member.voice.channel){
             return this.list[command]({args, msg});
         }
-        return message.send(params.msg, {title : 'join a channel '})
+        return message.send(params.msg, {title : 'join a channel'})
     }
 
     join(params){
         params.msg.member.voice.channel.join()
-        message.send(params.msg, `Hello Uta chan is here, let's sing along 🎶`)
+        message.send(params.msg, {title : `Hello Uta chan is here, let's sing along 🎶`})
     }
 
     disconnect(params){
-            params.connection.disconnect();
-            message.send(params.msg, `Bye - bye arigatou 😥`)
+            params.msg.member.voice.channel.leave();
+            message.send(params.msg, {title : `Bye - bye arigatou 😥`})
     }
 
     help(params) {

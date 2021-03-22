@@ -10,13 +10,13 @@ class Play {
         try {
             this.connection = await params.msg.member.voice.channel.join();
             if(params.args.length !== 0){
-                console.log('masuk')
                 if(params.args[0].toLowerCase().startsWith('https://www')){
                     return this.dispatcher = this.connection.play(await ytdl(params.args[0]), { type: 'opus' });
                 }else{
                     let result = await yt_search(params.args.join(' '));
-                    let songUrl = result.videos.slice(0, 1)
-                    return this.dispatcher = this.connection.play(await ytdl(songUrl), {type: 'opus'});
+                    let song = result.videos.slice(0, 1)[0];
+                    message.send(params.msg, {title: song.title, thumbnail :{url : song.thumbnail}, description: song.duration.timestamp, footer: {text : "Let's sing along with me 🎶😃"}})
+                    return this.dispatcher = this.connection.play(await ytdl(song.url), {type: 'opus'});
                 }
             }
             return message.send(params.msg, {title: "Uta chan can't sing without the song title :'"})
