@@ -19,10 +19,11 @@ class Commands {
         }
     }
 
-    executeCommand(connection, command, args, msg) {
+    executeCommand(command, args, msg) {
         if(msg.member.voice.channel){
-            return this.list[command]({connection, args, msg});
+            return this.list[command]({args, msg});
         }
+        return message.send(params.msg, {title : 'join a channel '})
     }
 
     join(params){
@@ -31,8 +32,8 @@ class Commands {
     }
 
     disconnect(params){
-        params.connection.disconnect();
-        message.send(params.msg, `Bye - bye arigatou 😥`)
+            params.connection.disconnect();
+            message.send(params.msg, `Bye - bye arigatou 😥`)
     }
 
     help(params) {

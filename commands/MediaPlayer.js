@@ -8,16 +8,21 @@ const message = new MessageHandler();
 class Play {
     async play(params) {
         try {
-            if(params.msg.content.toLowerCase().startsWith('http')){
-                return this.dispatcher = params.connection.play(await ytdl(params.args[0]), { type: 'opus' });
-            }else{
-                let result = await yt_search(params.args);
-                let songUrl = result.videos.slice(0, 1)
-                return this.dispatcher = params.connection.play(await ytdl(songUrl), {type: 'opus'});
+            this.connection = await params.msg.member.voice.channel.join();
+            if(params.args.length !== 0){
+                console.log('masuk')
+                if(params.args[0].toLowerCase().startsWith('https://www')){
+                    return this.dispatcher = this.connection.play(await ytdl(params.args[0]), { type: 'opus' });
+                }else{
+                    let result = await yt_search(params.args.join(' '));
+                    let songUrl = result.videos.slice(0, 1)
+                    return this.dispatcher = this.connection.play(await ytdl(songUrl), {type: 'opus'});
+                }
             }
+            return message.send(params.msg, {title: "Uta chan can't sing without the song title :'"})
         }
         catch (err) {
-            message.send(params.msg, err.toString())
+            message.send(params.msg, {title: err.toString()})
         }
     }
 
@@ -33,20 +38,20 @@ class Play {
             result = [];
         }
         catch(err){
-            message.send(params.msg, err.toString())
+            message.send(params.msg, {description : err.toString()})
         }
     }
 
     pause(params) {
-        this.dispatcher ? this.dispatcher.pause() : message.send(params.msg, "You should request me a song master 😃");
+        this.dispatcher ? this.dispatcher.pause() : message.send(params.msg, {description : "You should request me a song master 😃"});
     }
 
     resume(params) {
-        this.dispatcher ? this.dispatcher.resume() : message.send(params.msg, "You should request me a song master 😃");
+        this.dispatcher ? this.dispatcher.resume() : message.send(params.msg, {description : "You should request me a song master 😃"});
     }
 
     stop(params) {
-        this.dispatcher ? this.dispatcher.destroy() : message.send(params.msg, "You should request me a song master 😃");
+        this.dispatcher ? this.dispatcher.destroy() : message.send(params.msg, {description :"You should request me a song master 😃"});
     }
 }
 module.exports = Play;

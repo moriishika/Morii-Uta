@@ -17,14 +17,13 @@ moriiuta.on('message', async msg => {
     const args =  msg.content.slice(prefixs.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
     
-    if(msg.content.startsWith(prefixs) && command !== ''){
+    if(msg.content.startsWith(prefixs) && command !== '' && msg.member.voice.channel){
         for (comm in commands.list){
             if(comm === command.toLowerCase()){
-                let connection = await msg.member.voice.channel.join();
-                return commands.executeCommand(connection, command, args, msg);
+                return commands.executeCommand(command, args, msg);
             }
         }
-        return message.send (msg, `Gommen Uta-chan can't understand this command 😥 : **$${command}**`);
+        return message.send(msg, `Gommen Uta-chan can't understand this command 😥 : **$${command}**`);
     }
 })
 
